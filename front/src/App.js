@@ -1,14 +1,33 @@
-import React from 'react';
+import React,{Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
+
+class App extends Component {
+  constructor(props){
+      super()
+      this.state = {
+          resp: ''
+      }
+  }
+  componentDidMount() {
+      let _this = this;
+      fetch("http://" + window.location.hostname+":5000").then(function(resp) {
+          console.log(resp);
+         // console.log(resp.text())
+          resp.text().then(str => {
+              _this.setState((state, props) => {return{resp:str}})
+          })
+      })
+  }
+
+  render() {
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          {this.state.resp}
         </p>
         <a
           className="App-link"
@@ -21,6 +40,7 @@ function App() {
       </header>
     </div>
   );
+  }
 }
 
 export default App;

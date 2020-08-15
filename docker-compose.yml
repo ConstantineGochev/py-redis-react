@@ -3,6 +3,9 @@ services:
   redis:
     container_name: redis
     image: redis
+    command: redis-server --requirepass SUPER_SECRET
+    volumes:
+      - ./redis-vol:/data
     ports:
       - '6379:6379'
   py-api:

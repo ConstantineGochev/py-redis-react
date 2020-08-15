@@ -8,7 +8,11 @@ print("connected to redis")
 CORS(app)
 
 @app.route('/')
-def hello_world():
+def index():
     return 'Hello, World!'
+@app.route('/users', methods=['GET', 'POST'])
+def users():
+    if request.method == "POST":
+        r_client.sadd(request.json.date, request.json.sec_id)
 if __name__ == '__main__':
     app.run()
